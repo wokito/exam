@@ -1,0 +1,31 @@
+<admintpl file="header" />
+<style>
+	*{ margin:0; padding:0; font-family:Microsoft Yahei;}
+	.all{ height:auto; min-width: 1233px; width:94%; border:1px solid #e5e5e5; margin:20px 3%; border-radius:5px; float:left;}
+	.title{ width:99%; height:50px; line-height:50px; padding-left:1%; background:#ecf0f1;}
+	.first_line{ width:100%; color:#383838; float:left; padding-bottom:15px;}
+	.line_column{ width:22.5%; padding:2%; padding:15px; float:left; height:80px; box-shadow: 1px 1px 2px #c7c7c7;}
+	.line_column img{ float:left; width:70px; padding:6px;}
+	.line_column span{ float:left; line-height:1.5; padding-top:25px; font-size:14px;}
+	.bottom{ width:100%;margin-bottom:  font-size:12px; text-align:center; line-height:1.5; color:#666;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="all">
+	<div class="title">选择考试科目</div>
+	<div class="first_line">
+		<volist name="result" id="vo">
+		<a href="{:U('Test/type',array('id'=>$vo['co_id']))}">
+			<div class="line_column">
+				<span >{$vo.co_name}</span>
+			</div>
+		</a>
+	    </volist>
+	</div>
+</div>
+<div class="bottom">
+</div>
+</div>
+</body>
+</html>

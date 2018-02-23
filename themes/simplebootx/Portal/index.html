@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>江西师范大学软件学院毕业设计选题管理系统用户登录</title>
+	<link href="__PUBLIC__/simpleboot/css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="__PUBLIC__/js/jQuery1.7.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery1.42.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/Validform_v5.3.2_min.js"></script>
+</head>
+<body>
+<div id="tab">
+	<ul class="tab_menu">
+		<li style="width:99.6%" class="selected">学生登录</li>
+	</ul>
+	<div class="tab_box">
+		<!-- 学生登录开始 -->
+		<div>
+			<div class="stu_error_box"></div>
+			<form action="" method="post" class="stu_login_error">
+				<div class="login">
+                				<ul>
+                					<li>
+                						<input class="input" id="js-admin-name" name="username" type="text" placeholder="{:L('USERNAME_OR_EMAIL')}" title="{:L('USERNAME_OR_EMAIL')}" value="{:cookie('admin_username')}" data-rule-required="true"  data-msg-required=""/>
+                					</li>
+                					<li>
+                						<input class="input" id="admin_pwd" type="password" name="password" placeholder="{:L('PASSWORD')}" title="{:L('PASSWORD')}" data-rule-required="true"  data-msg-required=""/>
+                					</li>
+                					<li class="verifycode-wrapper">
+                						{:sp_verifycode_img('length=4&font_size=20&width=248&height=42&use_noise=1&use_curve=0','style="cursor: pointer;" title="点击获取"')}
+                					</li>
+                					<li>
+                						<input class="input" type="text" name="verify" placeholder="{:L('ENTER_VERIFY_CODE')}" />
+                					</li>
+                				</ul>
+                				<div id="login_btn_wraper">
+                					<button type="submit" name="submit" class="btn js-ajax-submit" data-loadingmsg="{:L('LOADING')}">{:L('LOGIN')}</button>
+                				</div>
+                			</div>
+			</form>
+		</div>
+		<!-- 学生登录结束-->
+	</div>
+</div>
+<div class="screenbg">
+	<ul>
+		<li><a href="javascript:;"><img src="__PUBLIC__/images/0.jpg"></a></li>
+		<li><a href="javascript:;"><img src="__PUBLIC__/images/1.jpg"></a></li>
+		<li><a href="javascript:;"><img src="__PUBLIC__/images/2.jpg"></a></li>
+	</ul>
+</div>
+</body>
+	<script type="text/javascript">
+        $(document).ready(function(){
+            var $tab_li = $('#tab ul li');
+            $tab_li.hover(function(){
+                $(this).addClass('selected').siblings().removeClass('selected');
+                var index = $tab_li.index(this);
+                $('div.tab_box > div').eq(index).show().siblings().hide();
+            });
+        });
+	</script>
+	<script type="text/javascript">
+        $(function(){
+            /*学生登录信息验证*/
+            $("#stu_username_hide").focus(function(){
+                var username = $(this).val();
+                if(username=='输入学号'){
+                    $(this).val('');
+                }
+            });
+            $("#stu_username_hide").focusout(function(){
+                var username = $(this).val();
+                if(username==''){
+                    $(this).val('输入学号');
+                }
+            });
+            $("#stu_password_hide").focus(function(){
+                var username = $(this).val();
+                if(username=='输入密码'){
+                    $(this).val('');
+                }
+            });
+            $("#stu_password_hide").focusout(function(){
+                var username = $(this).val();
+                if(username==''){
+                    $(this).val('输入密码');
+                }
+            });
+            $("#stu_code_hide").focus(function(){
+                var username = $(this).val();
+                if(username=='输入验证码'){
+                    $(this).val('');
+                }
+            });
+            $("#stu_code_hide").focusout(function(){
+                var username = $(this).val();
+                if(username==''){
+                    $(this).val('输入验证码');
+                }
+            });
+            $(".stu_login_error").Validform({
+                tiptype:function(msg,o,cssctl){
+                    var objtip=$(".stu_error_box");
+                    cssctl(objtip,o.type);
+                    objtip.text(msg);
+                },
+                ajaxPost:true
+            });
+        });
+	</script>
+	<script type="text/javascript">
+        $(function(){
+            $(".screenbg ul li").each(function(){
+                $(this).css("opacity","0");
+            });
+            $(".screenbg ul li:first").css("opacity","1");
+            var index = 0;
+            var t;
+            var li = $(".screenbg ul li");
+            var number = li.size();
+            function change(index){
+                li.css("visibility","visible");
+                li.eq(index).siblings().animate({opacity:0},3000);
+                li.eq(index).animate({opacity:1},3000);
+            }
+            function show(){
+                index = index + 1;
+                if(index<=number-1){
+                    change(index);
+                }else{
+                    index = 0;
+                    change(index);
+                }
+            }
+            t = setInterval(show,8000);
+            //根据窗口宽度生成图片宽度
+            var width = $(window).width();
+            $(".screenbg ul img").css("width",width+"px");
+        });
+	</script>
+</html>

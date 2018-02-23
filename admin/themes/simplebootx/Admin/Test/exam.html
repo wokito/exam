@@ -1,0 +1,40 @@
+<admintpl file="header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">开始答题</a></li>
+    </ul>
+    <form method="post" action="{:U('Test/post_exam')}">
+        <p style="color:#00B895">一.单项选择题：</p>
+        <volist name="result" id="vo" key="i">
+            <h4 style="font-size: 20px">{$vo.ch_title}</h4>
+            <div class="true" getid="{$vo.op_ture}">
+                <input type="radio" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="A" name="select{$i}">A：{$vo.op_a}&nbsp;&nbsp;&nbsp;
+                <input type="radio" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="B" name="select{$i}">B：{$vo.op_b}&nbsp;&nbsp;&nbsp;
+                <input type="radio" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="C" name="select{$i}">C：{$vo.op_c}&nbsp;&nbsp;&nbsp;
+                <input type="radio" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="D" name="select{$i}">D：{$vo.op_d}&nbsp;&nbsp;
+            </div><br/><br/>
+        </volist>
+
+        <p style="color:#00B895">二.填空题：</p>
+        <volist name="result1" id="vo1" key="i">
+            <h4 style="font-size: 20px">{$vo1.fi_title}</h4>
+            <div>
+                <textarea name="fill{$vo1.id}" class="form-control" style="width: 548px; margin: 0px 575px 0px 0px; height: 64px;" rows="5" placeholder="答案以空格隔开"></textarea>
+            </div><br/><br/>
+        </volist>
+
+        <p style="color:#00B895">三.简答题：</p>
+        <volist name="result2" id="vo2">
+        <h4 style="font-size: 20px">什么是php</h4>
+        <div>
+            <textarea name="short{$vo2.id}" class="form-control" style="width: 635px; margin: 0px 575px 0px 0px; height: 126px;" rows="5"></textarea>
+        </div><br/><br/>
+        </volist>
+        <button>提交</button>
+     </form>
+</div>
+</body>
+<script src="__PUBLIC__/js/common.js"></script>
+</html>
