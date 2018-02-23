@@ -6,7 +6,7 @@ use Common\Controller\AdminbaseController;
 class AdController extends AdminbaseController{
     
 	protected $ad_model;
-	
+	     
 	public function _initialize() {
 		parent::_initialize();
 		$this->ad_model = D("Common/Ad");
