@@ -30,13 +30,13 @@ class TestController extends AdminbaseController{
         $this->assign('result',$result);
         $this->display();
     }
-
     /*
      * 开始答题
      */
     public function exam(){
         //试卷id
         $id = I('id','','intval');
+        $pa_time = I('pa_time','','trim');
 
         //选择题
         $m = M('choice','ks_');
@@ -57,14 +57,78 @@ class TestController extends AdminbaseController{
         $this->assign('result2',$result2);
         $this->assign('result1',$result1);
         $this->assign('result',$result);
+        $this->assign('id',$id);
+        $this->assign('pa_time',$pa_time);
         $this->display();
     }
     /*
-     * 提交答案
+     * 提交选择题
      */
-    public function post_exam(){
-        $post_exam = I('post.');
-        dump($post_exam);
-        exit;
+    public function post_select(){
+        //选择题判断
+        $user_id         = $_SESSION['ADMIN_ID'];
+        $pa_id           = I('id','','intval');
+        $select          = I('select','','trim');
+        $ch_id           = I('ch_id','','trim');
+        $data['st_id']  = $user_id;
+        $data['ch_id']  = $ch_id;
+        $data['answer'] = $select;
+        $data['pa_id']  = $pa_id;
+        $data['status'] = I('status','','intval');
+        $m = M('ch-answer','ks_');
+        $judge = $m->where(array('ch_id'=>$ch_id))->find();
+        if($judge){
+            $result = $m->where(array('ch_id'=>$ch_id))->save($data);
+        }else{
+            $result = $m->add($data);
+        }
+    }
+    /*
+     * 提交填空题
+     */
+    public function post_fill(){
+        //填空题判断
+        $user_id         = $_SESSION['ADMIN_ID'];
+        $fi_id = I('fi_id','','intval');
+        $pa_id = I('pa_id','','intval');;
+        $answer = I('answer','','trim');
+        $data['fi_id'] = $fi_id;
+        $data['pa_id'] = $pa_id ;
+        $data['st_id'] = $user_id;
+        $data['answer'] =$answer;
+        $data['status'] = I('status','','intval');
+        $m = M('fi-answer','ks_');
+        $judge1 = $m->where(array('fi_id'=>$fi_id))->find();
+        if($judge1){
+            $result = $m->where(array('fi_id'=>$fi_id))->save($data);
+        }else{
+            $result = $m->add($data);
+        }
+    }
+    /*
+     * 简答题判断
+     */
+    public function post_short(){
+        $user_id         = $_SESSION['ADMIN_ID'];
+        $sa_id = I('sa_id','','intval');
+        $pa_id = I('pa_id','','intval');
+        $answer = I('answer','','trim');
+        $data['sa_id'] = $sa_id;
+        $data['pa_id'] = $pa_id;
+        $data['st_id'] = $user_id;
+        $data['answer'] = $answer;
+        $m = M('sa-answer','ks_');
+        $judge2 = $m->where(array('sa_id'=>$sa_id))->find();
+        if($judge2){
+            $result = $m->where(array('sa_id'=>$sa_id))->save($data);
+        }else{
+            $result = $m->add($data);
+        }
+    }
+    /*
+     * 考试结束
+     */
+    public function end(){
+        $this->display();
     }
 }

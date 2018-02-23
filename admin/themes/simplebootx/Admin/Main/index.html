@@ -1,0 +1,73 @@
+<admintpl file="header" />
+<style>
+	*{ margin:0; padding:0; font-family:Microsoft Yahei;}
+	.all{ height:auto; min-width: 1233px; width:94%; border:1px solid #e5e5e5; margin:20px 3%; border-radius:5px; float:left;}
+	.title{ width:99%; height:50px; line-height:50px; padding-left:1%; background:#ecf0f1;}
+	.first_line{ width:100%; color:#383838; float:left; padding-bottom:15px;}
+	.line_column{ width:22.5%; padding:2%; padding:15px; float:left; height:80px; box-shadow: 1px 1px 2px #c7c7c7;}
+	.line_column img{ float:left; width:70px; padding:6px;}
+	.line_column span{ float:left; line-height:1.5; padding-top:25px; font-size:14px;}
+	.bottom{ width:100%;margin-bottom:  font-size:12px; text-align:center; line-height:1.5; color:#666;}
+</style>
+</head>
+<body>
+<div class="all">
+	<div class="title">数据统计链接</div>
+	<div class="first_line">
+		<a href="{:U('admins/school/school')}">
+			<div class="line_column">
+				<img src="__PUBLIC__/youke/images/img_13.png">
+				<span >学院个数<br>{$result}</span>
+			</div>
+		</a>
+		<a href="{:U('admins/school/sy_school')}">
+			<div class="line_column">
+				<img src="__PUBLIC__/youke/images/img_14.png">
+				<span>老师人数<br>{$result1}</span>
+			</div>
+		</a>
+		<a href="{:U('admins/school/school')}">
+			<div class="line_column">
+				<img src="__PUBLIC__/youke/images/img_2.png">
+				<span>学生人数<br>{$result2}</span>
+			</div>
+		</a>
+
+		<a href="{:U('admins/man/cate',array('id'=>4))}">
+			<div class="line_column">
+				<img src="__PUBLIC__/youke/images/img_4.png">
+				<span>试卷个数<br>{$result3}</span>
+			</div>
+		</a>
+
+
+		<a href="{:U('admins/opinion/index')}">
+			<div class="line_column">
+				<img src="__PUBLIC__/youke/images/img_7.png">
+				<span>意见反馈条数<br>{$opinion}</span>
+			</div>
+		</a>
+
+	</div>
+</div>
+<div class="all">
+	<div class="title">数据统计展示</div>
+	<div class="first_line">
+		<div class="line_column">
+			<img src="__PUBLIC__/youke/images/img_3.png">
+			<span>班级数量<br>{$class}</span>
+		</div>
+		<div class="line_column">
+			<img src="__PUBLIC__/youke/images/img_8.png">
+			<span>考试数量<br>{$num}</span>
+		</div>
+		<div class="line_column">
+			<img src="__PUBLIC__/youke/images/img_10.png">
+			<span>网站总访问量<br>{$clicks}</span>
+		</div>
+	</div>
+</div>
+<div class="bottom">
+</div>
+</body>
+</html>

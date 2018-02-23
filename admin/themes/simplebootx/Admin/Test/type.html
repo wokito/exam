@@ -20,7 +20,7 @@
                     <td>{$vo.id}</td>
                     <td>{$vo.pa_name}</td>
                     <td>
-                        <a href="{:U('Test/exam',array('id'=>$vo['id']))}">开始答题</a>
+                        <a href="{:U('Test/exam',array('id'=>$vo['id'],'pa_time'=>$vo['pa_time']))}">开始答题</a>
                     </td>
                 </tr>
             </foreach>
