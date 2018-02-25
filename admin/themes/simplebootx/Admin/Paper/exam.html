@@ -1,0 +1,109 @@
+<admintpl file="header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">开始答题</a></li>
+        <div>
+            <p style="margin-left: 89%" id="divdown1"></p>
+        </div>
+    </ul>
+        <input type="hidden" name="id" value="{$id}" id="id">
+        <input type="hidden" name="pa_time" value="{$pa_time}" id="pa_time">
+        <p style="color:#00B895">一.单项选择题：</p>
+        <volist name="result" id="vo" key="i">
+            <h4 style="font-size: 16px">{$i}.{$vo.ch_title}</h4>
+            <div>
+                <input type="radio" gettrue="{$vo.op_ture}" getid="{$vo.ch_id}" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="A" name="select{$i}">A：{$vo.op_a}&nbsp;&nbsp;&nbsp;
+                <input type="radio" gettrue="{$vo.op_ture}" getid="{$vo.ch_id}" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="B" name="select{$i}">B：{$vo.op_b}&nbsp;&nbsp;&nbsp;
+                <input type="radio" gettrue="{$vo.op_ture}" getid="{$vo.ch_id}" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="C" name="select{$i}">C：{$vo.op_c}&nbsp;&nbsp;&nbsp;
+                <input type="radio" gettrue="{$vo.op_ture}" getid="{$vo.ch_id}" class="ceshi1" style="vertical-align:middle; margin-top:-2px; margin-bottom:1px;" value="D" name="select{$i}">D：{$vo.op_d}&nbsp;&nbsp;
+            </div><br/><br/>
+        </volist>
+
+        <p style="color:#00B895">二.填空题：</p>
+        <volist name="result1" id="vo1" key="i">
+            <h4 style="font-size: 16px">{$i}{$vo1.fi_title}</h4>
+            <div>
+                <textarea name="fill{$vo1.id}" getid="{$vo1.id}" getture="{$vo1.fi_ture}" class="form-control" style="width: 548px; margin: 0px 575px 0px 0px; height: 64px;" rows="5" placeholder="答案以空格隔开"></textarea>
+            </div><br/><br/>
+        </volist>
+
+        <p style="color:#00B895">三.简答题：</p>
+        <volist name="result2" id="vo2" key="i">
+        <h4 style="font-size: 16px">{$i}.什么是php</h4>
+        <div>
+            <textarea name="short{$vo2.id}" class="form-control" style="width: 635px; margin: 0px 575px 0px 0px; height: 126px;" rows="5" getid="{$vo2.id}" getture="{$vo2.sa_ture}"></textarea>
+        </div><br/><br/>
+        </volist>
+        <button id="button" class="btn btn-primary  js-ajax-submit" data-msg="确定要交卷吗？">提交</button>
+</div>
+</body>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+    $("#button").click(function(){
+        window.location.href="{:U('Test/end')}";
+    })
+</script>
+<script>
+    //选择题判断
+    $(".ceshi1").change(function(){
+        var select = $(this).val();
+        var correct = $(this).attr('gettrue');
+        var ch_id = $(this).attr('getid');
+        var id    =  $('#id').val();
+        if(select == correct){
+             var stutus = 1;
+             var url = "{:U('Test/post_select')}";
+             $.post(url,{"ch_id":ch_id,"select":select,"id":id,"status":stutus},function(data){
+             })
+        }else{
+            var stutus = 0;
+            var url = "{:U('Test/post_select')}";
+            $.post(url,{"ch_id":ch_id,"select":select,"id":id,"status":stutus},function(data){
+            })
+        }
+    })
+    //填空题判断
+    $(".form-control").blur(function(){
+           var fill = $(this).val();
+           var fi_ture = $(this).attr('getture');
+           var pa_id    =  $('#id').val();
+           var fi_id = $(this).attr('getid');
+           var url = "{:U('Test/post_fill')}";
+           if(fi_ture == fill){
+               var status = 1;
+               $.post(url,{"fi_id":fi_id,"pa_id":pa_id,"answer":fill,"status":status},function(data){
+
+               })
+           }else{
+               var status = 0;
+               $.post(url,{"fi_id":fi_id,"pa_id":pa_id,"answer":fill,"status":status},function(data){
+
+               })
+           }
+    })
+    //简答题判断
+     $(".form-control").blur(function(){
+         var sa_id = $(this).attr('getid');
+         var pa_id    =  $('#id').val();//试卷id
+         var answer = $(this).val();
+         var sa_ture = $(this).attr('getture');
+         var url     = "{:U('Test/post_short')}"
+         if(answer == sa_ture){
+             var status = 1;
+             $.post(url,{"sa_id":sa_id,"pa_id":pa_id,"answer":answer,"status":status},function(data){
+
+             })
+         }else{
+             var status = 0;
+             $.post(url,{"sa_id":sa_id,"pa_id":pa_id,"answer":answer,"status":status},function(data){
+
+             })
+         }
+
+
+
+     })
+</script>
+</html>
