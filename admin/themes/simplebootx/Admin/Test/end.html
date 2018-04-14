@@ -26,8 +26,13 @@
         </div>
     </div>
     <a class="btn btn-primary" href="{:U('Test/index')}">返回首页</a>
-
-    <a class="btn btn-primary" href="{:U('Test/pdf',array('score_num'=>$score_num))}">导出pdf</a>
+    <if condition="80 lt 60">
+        <a class="btn btn-primary" href="{:U('Test/pdf1',array('score_num'=>$score_num))}">导出pdf</a>
+        <elseif condition="($score_num egt 60) and ($score_num elt 80)"/>
+        <a class="btn btn-primary" href="{:U('Test/pdf2',array('score_num'=>$score_num))}">导出pdf</a>
+        <else/>
+        <a class="btn btn-primary" href="{:U('Test/pdf3',array('score_num'=>$score_num))}">导出pdf</a>
+    </if>
     <div class="bottom">
     </div>
 </div>
