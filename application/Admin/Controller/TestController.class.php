@@ -27,6 +27,7 @@ class TestController extends AdminbaseController{
                          ->join("inner join ks_paper b on a.co_id = b.id")
                          ->where(array('pa_co_id'=>$co_id))
                          ->select();
+
         $this->assign('result',$result);
         $this->display();
     }
@@ -36,24 +37,26 @@ class TestController extends AdminbaseController{
     public function exam(){
         //试卷id
         $id = I('id','','intval');
-        $pa_time = I('pa_time','','trim');
+        $pa_time = I('pa_time');
 
         //选择题
         $m = M('choice','ks_');
         //选择题数量
         $count = $m->where(array('paper_id'=>$id))->count();
-        $result = $m->where(array('paper_id'=>$id))->select();
+        $result = $m->table('ks_choice a')->join('inner join ks_content_ch b on a.ch_id = b.id')->where(array('paper_id'=>$id))->select();
+         
 
         //填空题
         $m1 = M('fill','ks_');
         //填空题数量
         $count1 = $m1->where(array('fi_course_id'=>$id))->count();
-        $result1 = $m1->where(array('fi_course_id'=>$id))->select();
+        $result1 = $m1->table('ks_fill a')->join('inner join ks_content_fi b on a.id = b.id')->where(array('fi_course_id'=>$id))->select();
+
         //简答题
         $m2 = M('saq','ks_');
         $count2 = $m2->where(array('sa_course_id'=>$id))->count();
-        $result2 = $m2->where(array('sa_course_id'=>$id))->select();
-
+        $result2 = $m2->table('ks_saq a')->join('inner join ks_content_sq b on a.id = b.id')->where(array('sa_course_id'=>$id))->select();
+    
         $this->assign('result2',$result2);
         $this->assign('result1',$result1);
         $this->assign('result',$result);
@@ -129,6 +132,27 @@ class TestController extends AdminbaseController{
      * 考试结束
      */
     public function end(){
+        $score1 = M('ch-answer','ks_')->where('status = 1')->count();
+        $score2 = M('fi-answer','ks_')->where('status = 1')->count();
+        $score_num = $score1*2+$score2*2;
+        $this->assign('score_num',$score_num);
         $this->display();
+
+    }
+    /*
+     * pdf导出
+     */
+    public function pdf(){
+        $score_num = I('score_num');
+        vendor('mpdf.mpdf');
+        //设置中文编码
+        $mpdf=new \mPDF('zh-cn','A4', 0, '宋体', 0, 0);
+        //html内容
+        $html='http://localhost/exam/index.php?g=Admin&m=Test&a=end';
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+
+        $this->display();
+
     }
 }
