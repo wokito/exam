@@ -108,7 +108,7 @@
 </script>
 <script language=javascript>
     var pa_time = $("#pa_time").val();
-    var the_s = pa_time;//定义剩余时间, 必须用时间戳.单位为秒
+    var the_s = pa_time*60;//定义剩余时间, 必须用时间戳.单位为秒
 
     var a = setInterval(promote,1000);//每秒执行一次下面的函数
     function promote() {

@@ -59,18 +59,36 @@ class PaperController extends AdminbaseController
     }
     public function create()
     {
-        $m = M('academy','ks_');
+        $m = M('course','ks_');
         $result = $m->select();
         $this->assign('result',$result);
+        
         $this->display();
     }
     public function auto()
     {
+        $data['pa_name'] =I('pa_name');
+        $data['ch_num'] = I('ch_num');
+        $data['ch_score'] = I('ch_score');
+        $data['fill_num'] = I('fi_num');
+        $data['fill_score'] = I('fi_score');
+        $data['sa_num'] = I('sa_num');
+        $data['sa_score'] = I('sa_score');
+        $data['tf_num'] = I('tf_num');
+        $data['tf_score'] = I('tf_score');
+        $data['pa_co_id'] = I('co_id');
+        $data['pa_time'] = I('pa_time');
+        $paper = M('Paper','ks_');
+        $result = $paper->insert($data);
 
-    }
+        }   
+
+
+
+
     public function manual()
     {
-
+        $this->display();
 
     }
     public function edit()

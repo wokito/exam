@@ -15,19 +15,20 @@
     </ul>
         <input type="hidden" name="id" value="{$id}" id="id">
         <div>
+            <form action="" name="Paper" method="post">
             <div id="div5">
                 <p style="color:#00B895">试卷名称：</p>
-                <input type="text" name="pa_name">&nbsp;&nbsp;&nbsp;</br></br>
+                <input type="text" name="pa_name" class="Paper">&nbsp;&nbsp;&nbsp;</br></br>
             </div>
             <div id="div6">
                 <p style="color:#00B895">考试时间（分钟）：</p>
-                <input type="text" name="pa_time">&nbsp;&nbsp;&nbsp;</br></br>
+                <input type="text" name="pa_time" class="Paper">&nbsp;&nbsp;&nbsp;</br></br>
             </div>
             <div id="div9">
                 <p style="color:#00B895">所属课程：</p>
-                <select style="height: 30px">
+                <select name="ac_id">
                     <volist name="result" id="vo" key="i">
-                        <option value="{$i}.{$ac_id}">{$i}.{$vo.ac_name}</option>
+                        <option value="{$i}.{$ac_id}" class="Paper">{$i}.{$vo.ac_name}</option>
                     </volist>
                 </select></br></br>
             </div>
@@ -35,48 +36,50 @@
         <div>
             <div id="div1">
                 <p style="color:#00B895">选择题个数：</p>
-                <input type="text" name="ch_num">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="ch_num" class="Paper">&nbsp;&nbsp;&nbsp;
                 <p style="color:#00B895">选择题分值：</p>
                 <input type="text" name="ch_score">&nbsp;&nbsp;&nbsp;
             </div>
             <div id="div2">
                 <p style="color:#00B895">填空题个数：</p>
-                <input type="text" name="fi_num">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="fi_num" class="Paper">&nbsp;&nbsp;&nbsp;
                 <p style="color:#00B895">选择题分值：</p>
                 <input type="text" name="fi_score">&nbsp;&nbsp;&nbsp;
             </div>
             <div id="div3">
                 <p style="color:#00B895">判断题个数：</p>
-                <input type="text" name="tf_num">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="tf_num" class="Paper">&nbsp;&nbsp;&nbsp;
                 <p style="color:#00B895">判断题分值：</p>
-                <input type="text" name="tf_score">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="tf_score" class="Paper">&nbsp;&nbsp;&nbsp;
             </div>
             <div id="div4">
                 <p style="color:#00B895">问答题个数：</p>
-                <input type="text" name="sa_num">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="sa_num" class="Paper">&nbsp;&nbsp;&nbsp;
                 <p style="color:#00B895">问答题分值：</p>
-                <input type="text" name="sa_score">&nbsp;&nbsp;&nbsp;
+                <input type="text" name="sa_score" class="Paper">&nbsp;&nbsp;&nbsp;
             </div>
         </div>
         
         </br></br>
         <div id="div7">
-            &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" class="btn btn-primary  js-ajax-submit" data-msg="确定生成试卷吗？">自动生成试卷</button>&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="button1" onclick="auto()">自动生成试卷</button>&nbsp;&nbsp;&nbsp;
         </div>
         <div id="div8">
-            &nbsp;&nbsp;&nbsp;<button id="button2" class="btn btn-primary  js-ajax-submit" data-msg="确定生成试卷吗？">手动生成试卷</button>
+            &nbsp;&nbsp;&nbsp;<button id="button2" onclick="manual()">手动生成试卷</button>
         </div>
-        
+        </form>
 </div>
 </body>
 <script src="__PUBLIC__/js/common.js"></script>
 <script>
-    $("#button1").click(function(){
-        window.location.href="{:U('Paper/auto')}";
-    })
-    $("#button2").click(function(){
-        window.location.href="{:U('Paper/manual')}";
-    })
+    function auto(){
+        document.Paper.action = "{:U('Paper/auto')}";
+        document.Paper.submit();
+    }
+    function manual(){
+        document.Paper.action = "{:U('Paper/manual')}";
+        document.Paper.submit();
+    }
 </script>
 
     

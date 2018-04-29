@@ -15,24 +15,9 @@
     <div class="all">
         <div class="title">考试结束</div>
         <div class="first_line">
-            <h2>您得的分数为{$score_num}</h2>
-            <if condition="$score_num lt 60">
-                 您没及格
-            <elseif condition="($score_num egt 60) and ($score_num elt 80)"/>
-                 很好
-            <else/>
-                 非常好
-            </if><br/>
+            <h2>考试结束</h2><a href="{:U('Test/index')}">返回首页</a>
         </div>
     </div>
-    <a class="btn btn-primary" href="{:U('Test/index')}">返回首页</a>
-    <if condition="80 lt 60">
-        <a class="btn btn-primary" href="{:U('Test/pdf1',array('score_num'=>$score_num))}">导出pdf</a>
-        <elseif condition="($score_num egt 60) and ($score_num elt 80)"/>
-        <a class="btn btn-primary" href="{:U('Test/pdf2',array('score_num'=>$score_num))}">导出pdf</a>
-        <else/>
-        <a class="btn btn-primary" href="{:U('Test/pdf3',array('score_num'=>$score_num))}">导出pdf</a>
-    </if>
     <div class="bottom">
     </div>
 </div>
